@@ -14,22 +14,32 @@ def fast_io():
 
 def solve():
     # Start here
-    mod = 10**9+7
-    n,k = map(int,input().split())
-    nums = li()
-    max_sum = sum(nums)
-    dp = [0]*len(nums)
-    dp[0] = nums[0]
-    ans = dp[0]
-    for i in range(1,len(nums)):
-        dp[i] = max(nums[i],nums[i]+dp[i-1])
-        ans = max(ans,dp[i])
-    if ans < 0:
-        print(max_sum % mod)
+    n,k = map(int, input().split())
+    arr = li()
+    a = li()
+    l = 0
+    r = 5*(10**8)
+    def check(x):
+        res = 0
+        for i in range(len(a)):
+            if x > arr[i]:
+                res += a[i]
+            else:
+                res += math.ceil(arr[i] / x) * a[i]
+        if res > k:
+            return False
+        else:
+            return True
+    while r - l > 1:
+        m = (r + l) // 2
+        if check(m):
+            r = m
+        else:
+            l = m
+    if r == 5*(10**8):
+        print(-1)
     else:
-        rest = max_sum - ans
-        ans = (2**k) * ans
-        print((ans+rest) % mod)
+        print(r)
     return
 
 if __name__ == "__main__":

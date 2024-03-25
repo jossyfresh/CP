@@ -14,13 +14,7 @@ def fast_io():
 
 def solve():
     # Start here
-    n,k = map(int,input().split())
-    if k >= n-1:
-        print(1)
-        return
-    else:
-        print(n)
-        return
+    return
 
 if __name__ == "__main__":
     fast_io()

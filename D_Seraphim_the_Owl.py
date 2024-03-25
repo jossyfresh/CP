@@ -14,24 +14,15 @@ def fast_io():
 
 def solve():
     # Start here
-    mod = 10**9+7
-    n,k = map(int,input().split())
-    nums = li()
-    max_sum = sum(nums)
-    dp = [0]*len(nums)
-    dp[0] = nums[0]
-    ans = dp[0]
-    for i in range(1,len(nums)):
-        dp[i] = max(nums[i],nums[i]+dp[i-1])
-        ans = max(ans,dp[i])
-    if ans < 0:
-        print(max_sum % mod)
-    else:
-        rest = max_sum - ans
-        ans = (2**k) * ans
-        print((ans+rest) % mod)
-    return
-
+    n,m = map(int, input().split())
+    a = li()
+    b = li()
+    names = ["Lidiya Abebe","melat tesfaye","Eyoab amare","Adey Ebuy","Surafel Fikre","Natnael Birhanu","Olman Gemechu","Hermela Ashagre","Hibreselam Dejene","Lemesa Elias","Abebe Megibar","Izzat engida","kaletsidike ayalew","hiwot addis","Liben Adugna","Chapa Eresso","Betelhem Negash","Hermela Mulugeta","Gadisa Yusuf"]
+    for i in range(len(names)):
+        names[i] = names[i].lower()
+    names.sort()
+    for name in names:
+        print(name)
 if __name__ == "__main__":
     fast_io()
     t = int(input())

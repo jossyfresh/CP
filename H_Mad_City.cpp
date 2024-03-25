@@ -71,10 +71,10 @@ int gcd(int a,int b) {
         return b;
     return gcd(b%a,a);
 }
-
-
-
-void dfs_cycle(int u, int p, int color[], int par [], int& cyclenumber,unordered_map<int,vector<int>> &adjlist,vector<vector<int>> &cycles)
+ 
+ 
+ 
+void dfs_cycle(int u, int p, int color[], int par[], int& cyclenumber,unordered_map<int,vector<int>> &adjlist,vector<vector<int>> &cycles)
 {
     
     if (color[u] == 2) {
@@ -103,10 +103,10 @@ void dfs_cycle(int u, int p, int color[], int par [], int& cyclenumber,unordered
         }
         dfs_cycle(v, u, color, par, cyclenumber,adjlist,cycles);
     }
-
+ 
     color[u] = 2;
 }
-
+ 
 void printCycles(int& cyclenumber,vector<vector<int>> &cycles,si &cycle)
 {
     for (int i = 0; i < cyclenumber; i++) {
@@ -116,7 +116,7 @@ void printCycles(int& cyclenumber,vector<vector<int>> &cycles,si &cycle)
 }
 vector<int> bfs(int start,unordered_map<int,vector<int>> &adjlist,si &cycle){
     deque<int>dq;
-    si vis;
+    si visits;
     vector<int>ans(2,-1);
     dq.push_back(start);
     int level = 0;
@@ -132,9 +132,9 @@ vector<int> bfs(int start,unordered_map<int,vector<int>> &adjlist,si &cycle){
             }
             dq.pop_front();
             for(auto &node : adjlist[cur]){
-                if (vis.find(node) == vis.end()){
+                if (visits.find(node) == visits.end()){
                     dq.push_back(node);
-                    vis.insert(node);
+                    visits.insert(node);
                 }
             }
         }
@@ -143,26 +143,26 @@ vector<int> bfs(int start,unordered_map<int,vector<int>> &adjlist,si &cycle){
     return ans;
 }
 int secondbfs(int start,int end,unordered_map<int,vector<int>> &adjlist){
-    deque<int>dqi;
+    deque<int>dq;
     si visits;
-    dqi.push_back(start);
+    dq.push_back(start);
     int level = 0;
-    while (dqi.size() > 0){
-        int len = dqi.size();
+    while (dq.size() > 0){
+        int len = dq.size();
         while (len > 0){
             len -= 1;
-            int cur = dqi.front();
+            int cur = dq.front();
             if (cur == end){
                 return level;
             }
-            dqi.pop_front();
+            dq.pop_front();
             for(auto &node : adjlist[cur]){
                 if (visits.find(node) == visits.end()){
-                    dqi.push_back(node);
+                    dq.push_back(node);
                     visits.insert(node);
                 }
             }
-
+ 
         }
         level++;
     }
@@ -171,23 +171,22 @@ int secondbfs(int start,int end,unordered_map<int,vector<int>> &adjlist){
 // Main function for solving the problem
 void solve() {
     // Start here
+    int N;
     si visited;
     si cycle;
     vector<vector<int>> cycles;
     unordered_map<int,vector<int>>adjlist;
-    int n; int a; int b;
-    cin >> n >> a >> b;
-    int color[n+1];
-    int par[n+1];
+    int a; int b;
+    cin >> N >> a >> b;
+    int color[N+1];
+    int par[N+1];
     int cyclenumber = 0;
-    for (int i = 0;i < n;i++){
-        int u;int v;
+    for (int i = 0;i < N;i++){
+        int u;
+        int v;
         cin >> u >> v;
         adjlist[u].push_back(v);
         adjlist[v].push_back(u);
-    }
-    for(int i = 0 ; i < n+1;i++){
-        color[i] = 0;
     }
     dfs_cycle(1, 0, color, par, cyclenumber,adjlist,cycles);
     printCycles(cyclenumber,cycles,cycle);
@@ -196,7 +195,6 @@ void solve() {
     int node = bdist[0];
     int dis = bdist[1];
     int res = secondbfs(a,node,adjlist);
-    
     if (res > dis){
         cout << "YES" << endl;
     }
@@ -210,6 +208,6 @@ int main() {
     int t = 1;
     cin >> t;
     while (t--) solve();
-
+ 
     return 0;
 }
