@@ -1,5 +1,5 @@
-a,b = map(str,input().split())
-if a == b:
-    print(a)
-else:
-    print(1)
+def solve
+if __name__ == "__main__":
+    t = int(input().strip())
+    for _ in range(t):
+        solve()
